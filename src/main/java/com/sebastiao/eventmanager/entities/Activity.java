@@ -2,7 +2,9 @@ package com.sebastiao.eventmanager.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_activity")
@@ -15,6 +17,9 @@ public class Activity {
     @Column(columnDefinition = "TEXT")
     private String description;
     private Double price;
+
+    @ManyToMany(mappedBy = "activities")
+    private Set<Participant> participants = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -68,6 +73,10 @@ public class Activity {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Set<Participant> getParticipants() {
+        return participants;
     }
 
     @Override
